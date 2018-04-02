@@ -1,0 +1,14 @@
+language: ruby
+
+env:
+  - ENV=test
+
+before_install:
+- bundle install --path=vendor/bundle --without test development && bundle clean
+- RAILS_ENV=$ENV bundle exec rake db:migrate
+- bundle exec whenever -w
+- RAILS_ENV=$ENV bundle exec rake assets:clean assets:precompile
+deploy:
+  provider: rubygems
+  api_key:
+    secure: gSq5aUdOtMxS/q/cVLmncdDWPnPgcInkfOAchd33OLnwstfj7fuYpnniOOQ6HKeElIBwj+UVGQjtPGQZUXTGJ6YZs7odhoBjHNP7GTTohWCsf1+Gz7jgycP8nKl5ZSUntieZIYf9B7FUCQRwr47Yl/f1+xhG16p+fP+PdVrLg2r4v8A4gUm4UGyEPF0/YcFuy3JkC0dHATImQ3c4Li/VgYLNi3OesmOkXVX3AL9k8vRBOj91O1wqrJ44H3xQobDN4VaRrAaAmQ+rnnnOHeid/Bz6aTOZ/Z+SMS0dE/Ty2EEqBIGAO9BGl+x3Urq0s9bPGbDXVeES3N63Fhf9b9wkE21xYUQlS+qd2ieYi7T85NPUO4sYCm3z97MDk9i3f8AYF8R3j8KDkhczVf44lceB/e1JLHVn8jwOFo9Hu4Z5lDI2+LUFkJyxfkfxpimjWhal+7uCSqUE8sMaZIqsjFAotSMm8mQ/wus5BQcN8ycfxZD15uV0skhwBI3lsLRJz6nwfZUH3P0UyalWKe/sepAge4xofeHvh1QD0MrWiILWvvf8e2AKappOboFavEU673GFks7ZyM5Bl9+h8RCy6mz2ReNqsouLYAe3oZJY1m9dZwWHrkgVNCyHQgsy4o57hKe8m3vtciIKnpaxWwffT0yt45fjpXOW33azGbHy06VLADk=
